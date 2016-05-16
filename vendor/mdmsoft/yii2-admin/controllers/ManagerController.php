@@ -100,6 +100,16 @@ class ManagerController extends Controller
         ]);
     }
 
+//    public function actionIndex()
+//    {
+//
+//        $dataProvider = Manager::find()->where(['id'=>2])->one();
+//
+//        return $this->render('index', [
+//            'dataProvider' => $dataProvider,
+//        ]);
+//    }
+
     /**
      * Displays a single User model.
      * @param integer $id
@@ -167,6 +177,7 @@ class ManagerController extends Controller
             if ( $model->signup()) {
                 return $this->redirect(['index']);
             }
+            else var_dump($model->getErrors());
         }
 
         return $this->render('signup', [
@@ -263,7 +274,7 @@ class ManagerController extends Controller
         if ($manager->status == Manager::STATUS_INACTIVE) {
             $manager->status = Manager::STATUS_ACTIVE;
             if ($manager->save()) {
-                return $this->goHome();
+                return $this->redirect(['index']);
             } else {
                 $errors = $manager->firstErrors;
                 throw new UserException(reset($errors));

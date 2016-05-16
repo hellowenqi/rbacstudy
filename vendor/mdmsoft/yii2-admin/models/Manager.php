@@ -8,6 +8,7 @@ use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 use mdm\admin\components\Configs;
+use mdm\admin\models\query\ManagerQuery;
 
 /**
  * This is the model class for table "manager".
@@ -25,7 +26,7 @@ use mdm\admin\components\Configs;
  */
 class Manager extends ActiveRecord implements IdentityInterface
 {
-    public $name;
+
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 10;
 
@@ -45,9 +46,9 @@ class Manager extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['username', 'name', 'email'], 'required'],
+            [['username',  'name', 'email', ], 'required'],
             [['username'], 'string', 'max' => 32],
-            [['name', 'email'], 'string', 'max' => 256],
+            [[ 'name', 'email'], 'string', 'max' => 256],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE]],
         ];

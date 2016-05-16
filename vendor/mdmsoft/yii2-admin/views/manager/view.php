@@ -29,7 +29,7 @@ $controllerId = $this->context->uniqueId . '/';
             ]);
         }
         ?>
-        <?= Html::a(Yii::t('rbac-admin', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+
         <?php
         if (Helper::checkRoute($controllerId . 'delete')) {
             echo Html::a(Yii::t('rbac-admin', 'Delete'), ['delete', 'id' => $model->id], [

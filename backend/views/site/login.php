@@ -40,6 +40,8 @@ $fieldOptions2 = [
             ->label(false)
             ->passwordInput(['placeholder' => $model->getAttributeLabel('password')]) ?>
 
+        <?= $form->field($model, 'identity')->inline()->radioList(['0'=>'学生','1'=>'教师','2'=>'管理员'])->label('请选择身份') ?>
+
         <div class="row">
             <div class="col-xs-8">
                 <?= $form->field($model, 'rememberMe')->checkbox() ?>

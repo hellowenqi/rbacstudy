@@ -4,7 +4,8 @@ namespace backend\controllers;
 
 use Yii;
 use backend\models\Manager;
-use backend\models\ManagerSearch;
+use backend\models\search\ManagerSearch;
+use backend\models\form\CreateManager;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -63,15 +64,17 @@ class ManagerController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Manager();
+        $model = new CreateManager();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+        if ($model->load(Yii::$app->request->post()) ) {
+            if($model->create()){
+//                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['index']);
+            }
         }
+        return $this->render('create', [
+            'model' => $model,
+        ]);
     }
 
     /**
@@ -84,8 +87,15 @@ class ManagerController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) ) {
+            if($Password = Yii::$app->request->post('Password')){
+                $model->setPassword($Password);
+            }
+//            return $this->redirect(['view', 'id' => $model->id]);
+            if($model->save())
+            {
+                return $this->redirect(['index']);
+            }
         } else {
             return $this->render('update', [
                 'model' => $model,

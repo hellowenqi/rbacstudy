@@ -19,7 +19,8 @@ class Manager extends ManagerModel
     {
         return [
             [['id', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['username', 'auth_key', 'password_hash', 'password_reset_token', 'name','email'], 'safe'],
+            ['name', 'string', 'min' => 2, 'max' => 255],
+            [['username', 'auth_key', 'password_hash', 'password_reset_token','email'], 'safe'],
         ];
     }
 
